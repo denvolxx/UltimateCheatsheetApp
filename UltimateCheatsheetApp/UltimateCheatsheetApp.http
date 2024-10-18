@@ -1,0 +1,6 @@
+@UltimateCheatsheetApp_HostAddress = http://localhost:5084
+
+GET {{UltimateCheatsheetApp_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

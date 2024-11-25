@@ -1,19 +1,15 @@
 ﻿using ApplicationDTO.Users;
 using ApplicationDTO.Users.Enums;
-using Azure;
 using DBService.Models;
 using DBService.Services.UserService;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using UltimateCheatsheetApp.Controllers.Base;
 
 namespace UltimateCheatsheetApp.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class UserController(IUserService _userService) : ControllerBase
+    public class UserController(IUserService _userService) : BaseApiController
     {
-        [HttpGet("user/{userId}")]
+        [HttpGet("{userId}")]
         public async Task<ActionResult<User>> GetUser(int userId)
         {
             var response = await _userService.GetById(userId);

@@ -1,7 +1,8 @@
 using DBService.Data;
 using DBService.Services.UserService;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+using MongoDBService.Data;
+using MongoDBService.Services;
 
 namespace UltimateCheatsheetApp
 {
@@ -22,7 +23,9 @@ namespace UltimateCheatsheetApp
                 )
             );
 
-            //options.UseSqlServer("name=ConnectionStrings:DefaultConnection"));
+            //MongoDB
+            builder.Services.AddScoped<MongoDataContext>(_ => new MongoDataContext(builder.Configuration.GetConnectionString("MongoConnection"),
+                "CheatsheetAppMongo"));
 
             // Controllers
             builder.Services.AddControllers();
@@ -35,6 +38,7 @@ namespace UltimateCheatsheetApp
 
             // Data access services
             builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IProductService, ProductService>();
 
             #endregion
 

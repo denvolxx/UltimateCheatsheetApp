@@ -1,9 +1,14 @@
 using DBService.Data;
 using DBService.Extensions;
+using DBService.Services.AccountService;
 using DBService.Services.UserService;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using MongoDBService.Data;
 using MongoDBService.Services;
+using System.Text;
+using UltimateCheatsheetApp.Extensions;
 
 namespace UltimateCheatsheetApp
 {
@@ -31,9 +36,20 @@ namespace UltimateCheatsheetApp
             // Controllers
             builder.Services.AddControllers();
 
-            // Swagger
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            // Swagger. Configured in separate extension method. Too much code for this page.
+            builder.Services.AddSwaggerService();
+
+            //Authentication
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetSection("TokenKey").Value!)),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
 
             // Mappers
             // AddAutoMapperProfiles - extension method for DBService
@@ -42,7 +58,10 @@ namespace UltimateCheatsheetApp
             // Data access services
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IProductService, ProductService>();
+            builder.Services.AddScoped<IAccountService, AccountService>();
 
+            //CORS
+            builder.Services.AddCors();
             #endregion
 
             var app = builder.Build();
@@ -53,11 +72,17 @@ namespace UltimateCheatsheetApp
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
-                app.UseSwaggerUI();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Cheatsheet API");
+                });
             }
+
+            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:7202", "http://localhost:5084"));
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllers();

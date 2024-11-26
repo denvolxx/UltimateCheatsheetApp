@@ -1,11 +1,13 @@
 ﻿using ApplicationDTO.MSSQL.Users;
 using DBModels;
 using DBService.Services.UserService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UltimateCheatsheetApp.Controllers.Base;
 
 namespace UltimateCheatsheetApp.Controllers
 {
+    [Authorize]
     public class UserController(IUserService _userService) : BaseApiController
     {
         [HttpGet("{userId}")]
@@ -23,6 +25,7 @@ namespace UltimateCheatsheetApp.Controllers
             }
         }
 
+        [AllowAnonymous]
         [HttpGet("all")]
         public async Task<ActionResult<List<UserDTO>>> GetAllUsers()
         {

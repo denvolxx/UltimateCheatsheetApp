@@ -12,6 +12,7 @@ namespace DBService.Helpers
             CreateMap<UserDTO, User>();
             CreateMap<AddUserDTO, User>();
             CreateMap<UpdateUserDTO, User>();
+            CreateMap<RegisterUserDTO, User>();
         }
     }
 }

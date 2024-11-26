@@ -1,7 +1,7 @@
-﻿using ApplicationDTO.Users;
+﻿using ApplicationDTO.MSSQL.Users;
+using DBModels;
+using DBModels.Enums;
 using DBService.Data;
-using DBService.Models;
-using DBService.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace DBService.Services.UserService

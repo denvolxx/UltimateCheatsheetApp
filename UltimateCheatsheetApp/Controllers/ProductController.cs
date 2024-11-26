@@ -1,7 +1,6 @@
-﻿using ApplicationDTO.Products;
-using DBService.Models;
+﻿using ApplicationDTO.Mongo.Products;
 using Microsoft.AspNetCore.Mvc;
-using MongoDBService.Models;
+using MongoDBModels;
 using MongoDBService.Services;
 using UltimateCheatsheetApp.Controllers.Base;
 

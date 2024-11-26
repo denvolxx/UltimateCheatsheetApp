@@ -1,5 +1,5 @@
-﻿using ApplicationDTO.Users;
-using DBService.Models;
+﻿using ApplicationDTO.MSSQL.Users;
+using DBModels;
 
 namespace DBService.Services.UserService
 {

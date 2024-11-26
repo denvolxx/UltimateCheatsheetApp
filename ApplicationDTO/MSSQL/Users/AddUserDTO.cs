@@ -1,7 +1,7 @@
-﻿using ApplicationDTO.Users.Enums;
+﻿using ApplicationDTO.MSSQL.Users.Enums;
 using System.Reflection;
 
-namespace ApplicationDTO.Users
+namespace ApplicationDTO.MSSQL.Users
 {
     public class AddUserDTO
     {

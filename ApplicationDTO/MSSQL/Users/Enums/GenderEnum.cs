@@ -1,4 +1,4 @@
-﻿namespace ApplicationDTO.Users.Enums
+﻿namespace ApplicationDTO.MSSQL.Users.Enums
 {
     public enum GenderEnum
     {

@@ -1,6 +1,6 @@
-﻿using ApplicationDTO.Users;
-using ApplicationDTO.Users.Enums;
-using DBService.Models;
+﻿using ApplicationDTO.MSSQL.Users;
+using ApplicationDTO.MSSQL.Users.Enums;
+using DBModels;
 using DBService.Services.UserService;
 using Microsoft.AspNetCore.Mvc;
 using UltimateCheatsheetApp.Controllers.Base;

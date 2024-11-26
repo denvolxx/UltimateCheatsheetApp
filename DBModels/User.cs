@@ -1,6 +1,6 @@
-﻿using DBService.Models.Enums;
+﻿using DBModels.Enums;
 
-namespace DBService.Models
+namespace DBModels
 {
     public class User
     {
@@ -9,5 +9,7 @@ namespace DBService.Models
         public string? Email { get; set; }
         public GenderEnum Gender { get; set; }
         public DateTime Created { get; set; } = DateTime.Now;
+        public string? City { get; set; }
+        public string? Country { get; set; }
     }
 }

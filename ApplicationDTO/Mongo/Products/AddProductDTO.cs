@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DBService.Models.Enums
+namespace ApplicationDTO.Mongo.Products
 {
-    public enum GenderEnum
+    public class AddProductDTO
     {
-        Male,
-        Female
+        public string? Name;
+        public decimal Price;
     }
 }

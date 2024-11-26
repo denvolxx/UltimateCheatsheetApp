@@ -1,18 +1,16 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson;
 
-
-namespace MongoDBService.Models
+namespace MongoDBModels
 {
     public class Product
     {
-        [BsonId] 
+        [BsonId]
         public int Id { get; set; }
 
-        [BsonElement("Name")] 
+        [BsonElement("Name")]
         public string? Name { get; set; }
 
-        [BsonElement("Price")] 
+        [BsonElement("Price")]
         public decimal Price { get; set; }
     }
 }

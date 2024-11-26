@@ -1,6 +1,5 @@
-﻿using DBService.Models;
+﻿using DBModels;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
 
 
 namespace DBService.Data

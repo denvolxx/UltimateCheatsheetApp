@@ -1,5 +1,6 @@
 using DBService.Data;
 using DBService.Extensions;
+using DBService.Services.AccountService;
 using DBService.Services.UserService;
 using Microsoft.EntityFrameworkCore;
 using MongoDBService.Data;
@@ -42,6 +43,7 @@ namespace UltimateCheatsheetApp
             // Data access services
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IProductService, ProductService>();
+            builder.Services.AddScoped<IAccountService, AccountService>();
 
             #endregion
 

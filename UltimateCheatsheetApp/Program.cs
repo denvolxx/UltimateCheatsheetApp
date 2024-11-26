@@ -1,4 +1,5 @@
 using DBService.Data;
+using DBService.Extensions;
 using DBService.Services.UserService;
 using Microsoft.EntityFrameworkCore;
 using MongoDBService.Data;
@@ -34,7 +35,9 @@ namespace UltimateCheatsheetApp
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            // Mapper
+            // Mappers
+            // AddAutoMapperProfiles - extension method for DBService
+            builder.Services.AddAutoMapperProfiles();
 
             // Data access services
             builder.Services.AddScoped<IUserService, UserService>();

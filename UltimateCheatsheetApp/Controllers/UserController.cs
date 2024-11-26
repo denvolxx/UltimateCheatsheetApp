@@ -1,5 +1,4 @@
 ﻿using ApplicationDTO.MSSQL.Users;
-using ApplicationDTO.MSSQL.Users.Enums;
 using DBModels;
 using DBService.Services.UserService;
 using Microsoft.AspNetCore.Mvc;
@@ -10,7 +9,7 @@ namespace UltimateCheatsheetApp.Controllers
     public class UserController(IUserService _userService) : BaseApiController
     {
         [HttpGet("{userId}")]
-        public async Task<ActionResult<User>> GetUser(int userId)
+        public async Task<ActionResult<UserDTO>> GetUser(int userId)
         {
             var response = await _userService.GetById(userId);
 
@@ -25,7 +24,7 @@ namespace UltimateCheatsheetApp.Controllers
         }
 
         [HttpGet("all")]
-        public async Task<ActionResult<List<User>>> GetAllUsers()
+        public async Task<ActionResult<List<UserDTO>>> GetAllUsers()
         {
             var response = await _userService.GetAll();
 
@@ -40,18 +39,47 @@ namespace UltimateCheatsheetApp.Controllers
         }
 
         [HttpPost("add")]
-        public async Task<ActionResult> AddUser(User user)
+        public async Task<ActionResult> AddUser(AddUserDTO user)
         {
-            AddUserDTO userDto = new AddUserDTO()
+            var response = await _userService.Add(user);
+
+            if (response)
             {
-                Name = user.Name,
-                Email = user.Email,
-                Gender = GenderEnum.Male
-            };
+                return Ok($"User {user.Name} was created");
+            }
+            else
+            {
+                return BadRequest("Unable to create user");
+            }
+        }
 
-            var response = await _userService.AddUser(userDto);
+        [HttpPut("update")]
+        public async Task<ActionResult> UpdateUser(UpdateUserDTO user)
+        {
+            var response = await _userService.Update(user);
+            if (response)
+            {
+                return Ok($"User {user.Name} was updated");
+            }
+            else
+            {
+                return BadRequest("Unable to update user");
+            }
+        }
 
-            return Ok($"User {response.Name} was created");
+        [HttpDelete("delete")]
+        public async Task<ActionResult> DeleteUser(int id)
+        {
+            var response = await _userService.Delete(id);
+
+            if (response)
+            {
+                return Ok($"User was deleted");
+            }
+            else
+            {
+                return BadRequest("Unable to delete user");
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using ApplicationDTO.MSSQL.Users;
+using AutoMapper;
 using DBModels;
 using DBModels.Enums;
 using DBService.Data;
@@ -6,47 +7,64 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DBService.Services.UserService
 {
-    public class UserService(DataContext _context) : IUserService
+    public class UserService(DataContext _context, IMapper _mapper) : IUserService
     {
-        public async Task<User> GetById(int id)
+        public async Task<UserDTO> GetById(int id)
         {
-            User? response = await _context.Users.FirstOrDefaultAsync(user => user.Id == id);
+            var user = await _context.Users.FirstOrDefaultAsync(user => user.Id == id);
 
-            if (response == null)
-            {
-                throw new Exception("Unable to retrieve user");
-            }
+            if (user == null)
+                throw new Exception("User was not found");
+
+            var response = _mapper.Map<UserDTO>(user);
 
             return response;
         }
 
-        public async Task<List<User>> GetAll()
+        public async Task<List<UserDTO>> GetAll()
         {
-            List<User> response = await _context.Users.ToListAsync();
+            var users = await _context.Users.ToListAsync();
 
-            if (response == null)
-            {
-                throw new Exception("Unable to retrieve users");
-            }
+            if (users == null)
+                throw new Exception("No users found");
+
+            var response = users.Select(p => _mapper.Map<UserDTO>(p)).ToList();
 
             return response;
         }
 
-        public async Task<AddUserDTO> AddUser(AddUserDTO userDto)
+        public async Task<bool> Add(AddUserDTO userDto)
         {
-            User user = new User()
-            {
-                Name = userDto.Name,
-                Email = userDto.Email,
-                Gender = GenderEnum.Male
-            };
+            User user = _mapper.Map<AddUserDTO, User>(userDto);
 
             _context.Users.Add(user);
-            await _context.SaveChangesAsync();
+            bool isSaved = await _context.SaveChangesAsync() > 0;
 
-            return userDto;
+            return isSaved;
         }
 
+        public async Task<bool> Update(UpdateUserDTO userDto)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userDto.Id);
+            if (user == null)
+                throw new Exception($"Person does not exist");
 
+            _mapper.Map(userDto, user);
+            bool isSaved = await _context.SaveChangesAsync() > 0;
+
+            return isSaved;
+        }
+
+        public async Task<bool> Delete(int id)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+            if (user == null)
+                throw new Exception($"Person does not exist. Or was already deleted");
+
+            _context.Users.Remove(user);
+            bool isSaved = await _context.SaveChangesAsync() > 0;
+
+            return isSaved;
+        }
     }
 }

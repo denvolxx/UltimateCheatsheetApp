@@ -8,5 +8,7 @@ namespace ApplicationDTO.MSSQL.Users
         public string? Name { get; set; }
         public string? Email { get; set; }
         public GenderEnum Gender { get; set; }
+        public string? City { get; set; }
+        public string? Country { get; set; }
     }
 }

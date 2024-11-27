@@ -1,8 +1,11 @@
 ﻿using ApplicationDTO.MSSQL.Users;
-using DBModels;
+using Common.PaginationHelpers;
+using Common.QueryParameters;
 using DBService.Services.UserService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson.IO;
+using System.Text.Json;
 using UltimateCheatsheetApp.Controllers.Base;
 
 namespace UltimateCheatsheetApp.Controllers
@@ -27,17 +30,20 @@ namespace UltimateCheatsheetApp.Controllers
 
         [AllowAnonymous]
         [HttpGet("all")]
-        public async Task<ActionResult<List<UserDTO>>> GetAllUsers()
+        public async Task<ActionResult<List<UserDTO>>> GetAllUsers([FromQuery] UserParams userParams)
         {
-            var response = await _userService.GetAll();
+            var users = await _userService.GetAll(userParams);
 
-            if (response == null)
+            if (users == null)
             {
-                return NotFound(response);
+                return NotFound();
             }
             else
             {
-                return Ok(response);
+                var paginationHeader = new PaginationHeader(users.CurrentPage, users.PageSize, users.TotalCount, users.TotalPages);
+                Response.Headers.Append("Pagination", JsonSerializer.Serialize(paginationHeader, new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase }));
+
+                return Ok(users);
             }
         }
 

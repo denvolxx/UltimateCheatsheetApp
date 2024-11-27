@@ -1,7 +1,9 @@
 ﻿using ApplicationDTO.MSSQL.Users;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using Common.PaginationHelpers;
+using Common.QueryParameters;
 using DBModels;
-using DBModels.Enums;
 using DBService.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,16 +23,25 @@ namespace DBService.Services.UserService
             return response;
         }
 
-        public async Task<List<UserDTO>> GetAll()
+        public async Task<PagedList<UserDTO>> GetAll(UserParams userParams)
         {
-            var users = await _context.Users.ToListAsync();
+            //If I need to query additionaly before data retrieval
+            IQueryable<User> query = _context.Users;
 
-            if (users == null)
-                throw new Exception("No users found");
+            //var users = await _context.Users.ToListAsync();
 
-            var response = users.Select(p => _mapper.Map<UserDTO>(p)).ToList();
+            //if (users == null)
+            //    throw new Exception("No users found");
 
-            return response;
+            //var response = users.Select(p => _mapper.Map<UserDTO>(p)).ToList();
+
+            var totalCount = await _context.Users.CountAsync();
+            var users = await query.ProjectTo<UserDTO>(_mapper.ConfigurationProvider)
+                .Skip((userParams.PageNumber - 1) * userParams.PageSize)
+                .Take(userParams.PageSize)
+                .ToListAsync();
+
+            return new PagedList<UserDTO>(users, userParams.PageSize, userParams.PageNumber, totalCount);
         }
 
         public async Task<bool> Add(AddUserDTO userDto)

@@ -28,9 +28,6 @@ namespace UltimateCheatsheetApp.Controllers
         {
             var tokenKey = _config["TokenKey"] ?? throw new Exception("Cannot access token key");
 
-            //if (tokenKey.Length < 64) 
-            //    throw new Exception("Your tokenkey should have at least 64 symbols");
-
             var token = await _accountService.Login(login, tokenKey);
 
             return Ok(token);

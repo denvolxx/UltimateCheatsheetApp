@@ -53,7 +53,7 @@ namespace UltimateCheatsheetApp
             });
 
             // Mappers
-            // AddAutoMapperProfiles - extension method for DBService
+            // AddAutoMapperProfiles - extension method for DBService mappers
             builder.Services.AddAutoMapperProfiles();
 
             // Data access services

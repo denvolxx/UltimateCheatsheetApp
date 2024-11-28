@@ -1,11 +1,10 @@
 ﻿using ApplicationDTO.MSSQL.Users;
-using Common.Helpers;
 using Common.QueryParameters;
 using DBService.Services.UserService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
 using UltimateCheatsheetApp.Controllers.Base;
+using UltimateCheatsheetApp.Extensions;
 
 namespace UltimateCheatsheetApp.Controllers
 {
@@ -39,8 +38,8 @@ namespace UltimateCheatsheetApp.Controllers
             }
             else
             {
-                var paginationHeader = new PaginationHeader(users.CurrentPage, users.PageSize, users.TotalCount, users.TotalPages);
-                Response.Headers.Append("Pagination", JsonSerializer.Serialize(paginationHeader, new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase }));
+                //Add "Pagination" header with retrieval information. Extension method
+                Response.AddPaginationHeader<UserDTO>(users);
 
                 return Ok(users);
             }

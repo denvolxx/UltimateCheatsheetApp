@@ -1,4 +1,4 @@
-﻿namespace Common.PaginationHelpers
+﻿namespace Common.Helpers
 {
     public class PagedList<T>: List<T>
     {

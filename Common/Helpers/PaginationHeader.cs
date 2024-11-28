@@ -1,4 +1,4 @@
-﻿namespace Common.PaginationHelpers
+﻿namespace Common.Helpers
 {
     public class PaginationHeader(int currentPage, int itemsPerPage, int totalItems, int totalPages)
     {

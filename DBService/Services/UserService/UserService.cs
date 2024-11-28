@@ -1,7 +1,7 @@
 ﻿using ApplicationDTO.MSSQL.Users;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using Common.PaginationHelpers;
+using Common.Helpers;
 using Common.QueryParameters;
 using DBModels;
 using DBService.Data;
@@ -16,7 +16,7 @@ namespace DBService.Services.UserService
             var user = await _context.Users.FirstOrDefaultAsync(user => user.Id == id);
 
             if (user == null)
-                throw new Exception("User was not found");
+                throw new Exception("User does not exist");
 
             var response = _mapper.Map<UserDTO>(user);
 
@@ -28,18 +28,14 @@ namespace DBService.Services.UserService
             //If I need to query additionaly before data retrieval
             IQueryable<User> query = _context.Users;
 
-            //var users = await _context.Users.ToListAsync();
-
-            //if (users == null)
-            //    throw new Exception("No users found");
-
-            //var response = users.Select(p => _mapper.Map<UserDTO>(p)).ToList();
-
             var totalCount = await _context.Users.CountAsync();
             var users = await query.ProjectTo<UserDTO>(_mapper.ConfigurationProvider)
                 .Skip((userParams.PageNumber - 1) * userParams.PageSize)
                 .Take(userParams.PageSize)
                 .ToListAsync();
+
+            if (users == null)
+                throw new Exception("Can not retrieve users");
 
             return new PagedList<UserDTO>(users, userParams.PageSize, userParams.PageNumber, totalCount);
         }
@@ -58,7 +54,7 @@ namespace DBService.Services.UserService
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userDto.Id);
             if (user == null)
-                throw new Exception($"Person does not exist");
+                throw new Exception($"User does not exist");
 
             _mapper.Map(userDto, user);
             bool isSaved = await _context.SaveChangesAsync() > 0;
@@ -70,7 +66,7 @@ namespace DBService.Services.UserService
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
             if (user == null)
-                throw new Exception($"Person does not exist. Or was already deleted");
+                throw new Exception($"User does not exist. Or was already deleted");
 
             _context.Users.Remove(user);
             bool isSaved = await _context.SaveChangesAsync() > 0;

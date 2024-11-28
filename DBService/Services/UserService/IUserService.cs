@@ -1,5 +1,5 @@
 ﻿using ApplicationDTO.MSSQL.Users;
-using Common.PaginationHelpers;
+using Common.Helpers;
 using Common.QueryParameters;
 
 namespace DBService.Services.UserService

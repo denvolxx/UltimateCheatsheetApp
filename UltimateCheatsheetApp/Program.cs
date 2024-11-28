@@ -9,6 +9,7 @@ using MongoDBService.Data;
 using MongoDBService.Services;
 using System.Text;
 using UltimateCheatsheetApp.Extensions;
+using UltimateCheatsheetApp.Middlewares;
 
 namespace UltimateCheatsheetApp
 {
@@ -67,6 +68,8 @@ namespace UltimateCheatsheetApp
             var app = builder.Build();
 
             #region Web Application Configurations
+
+            app.UseMiddleware<ExceptionMiddleware>();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

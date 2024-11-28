@@ -1,10 +1,9 @@
 ﻿using ApplicationDTO.MSSQL.Users;
-using Common.PaginationHelpers;
+using Common.Helpers;
 using Common.QueryParameters;
 using DBService.Services.UserService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MongoDB.Bson.IO;
 using System.Text.Json;
 using UltimateCheatsheetApp.Controllers.Base;
 
@@ -68,7 +67,7 @@ namespace UltimateCheatsheetApp.Controllers
             var response = await _userService.Update(user);
             if (response)
             {
-                return Ok($"User {user.Name} was updated");
+                return Ok($"User was updated");
             }
             else
             {

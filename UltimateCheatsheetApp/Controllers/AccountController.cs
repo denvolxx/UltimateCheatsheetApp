@@ -1,8 +1,6 @@
 ﻿using ApplicationDTO.MSSQL.Users;
-using DBService.Data;
 using DBService.Services.AccountService;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using UltimateCheatsheetApp.Controllers.Base;
 
 namespace UltimateCheatsheetApp.Controllers

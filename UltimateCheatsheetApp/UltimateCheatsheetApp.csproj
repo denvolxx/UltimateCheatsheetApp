@@ -24,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj" />
     <ProjectReference Include="..\DBService\DBService.csproj" />
     <ProjectReference Include="..\MongoDBService\MongoDBService.csproj" />
   </ItemGroup>

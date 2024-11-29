@@ -7,9 +7,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using MongoDBService.Data;
 using MongoDBService.Services;
+using StackExchange.Redis;
 using System.Text;
 using UltimateCheatsheetApp.Extensions;
 using UltimateCheatsheetApp.Middlewares;
+using UltimateCheatsheetApp.Services;
+using UltimateCheatsheetApp.Services.RedisCache;
 
 namespace UltimateCheatsheetApp
 {
@@ -31,7 +34,7 @@ namespace UltimateCheatsheetApp
             );
 
             //MongoDB
-            builder.Services.AddScoped<MongoDataContext>(_ => new MongoDataContext(builder.Configuration.GetConnectionString("MongoConnection"),
+            builder.Services.AddScoped<MongoDataContext>(_ => new MongoDataContext(builder.Configuration.GetConnectionString("MongoConnection")!,
                 "CheatsheetAppMongo"));
 
             // Controllers
@@ -56,10 +59,16 @@ namespace UltimateCheatsheetApp
             // AddAutoMapperProfiles - extension method for DBService mappers
             builder.Services.AddAutoMapperProfiles();
 
+            //Redis
+            builder.Services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect(builder.Configuration.GetSection("RedisConnection").Value!));
+
             // Data access services
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<IAccountService, AccountService>();
+            builder.Services.AddScoped<IRedisCacheService, RedisCacheService>();
+
+            builder.Services.AddScoped<DocUploadProcuder>();
 
             //CORS
             builder.Services.AddCors();

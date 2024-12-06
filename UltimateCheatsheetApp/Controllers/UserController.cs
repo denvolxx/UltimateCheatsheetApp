@@ -18,7 +18,7 @@ namespace UltimateCheatsheetApp.Controllers
 
             if (response == null)
             {
-                return NotFound(response);
+                return NotFound();
             }
             else
             {

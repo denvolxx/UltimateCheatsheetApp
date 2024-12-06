@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DBService", "DBService\DBSe
 		{29F9D75D-2004-4849-BEAD-10269C20D63E} = {29F9D75D-2004-4849-BEAD-10269C20D63E}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MongoDBService", "MongoDBService\MongoDBService.csproj", "{4372A731-D748-4F8F-BE81-D09CCC0721A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MongoDBService", "MongoDBService\MongoDBService.csproj", "{4372A731-D748-4F8F-BE81-D09CCC0721A2}"
 	ProjectSection(ProjectDependencies) = postProject
 		{60AB5564-3D3E-4E84-B1C2-844BCFB7C0C1} = {60AB5564-3D3E-4E84-B1C2-844BCFB7C0C1}
 		{DF01C882-8F7F-45F3-A921-452843C5EDA1} = {DF01C882-8F7F-45F3-A921-452843C5EDA1}
@@ -31,11 +31,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MongoDBService", "MongoDBSe
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Models", "Models", "{9280C656-484F-4573-8985-6EB7E8F9E0E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBModels", "DBModels\DBModels.csproj", "{29F9D75D-2004-4849-BEAD-10269C20D63E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DBModels", "DBModels\DBModels.csproj", "{29F9D75D-2004-4849-BEAD-10269C20D63E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MongoDBModels", "MongoDBModels\MongoDBModels.csproj", "{DF01C882-8F7F-45F3-A921-452843C5EDA1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MongoDBModels", "MongoDBModels\MongoDBModels.csproj", "{DF01C882-8F7F-45F3-A921-452843C5EDA1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{A415D442-66F5-4D03-B4D0-3D24F8ADFDF8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csproj", "{A415D442-66F5-4D03-B4D0-3D24F8ADFDF8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UltimateCheatsheetApp.Tests", "UltimateCheatsheetApp.Tests\UltimateCheatsheetApp.Tests.csproj", "{5FAAD999-2BEF-47F1-93ED-FB5300E4CD25}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,6 +73,10 @@ Global
 		{A415D442-66F5-4D03-B4D0-3D24F8ADFDF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A415D442-66F5-4D03-B4D0-3D24F8ADFDF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A415D442-66F5-4D03-B4D0-3D24F8ADFDF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FAAD999-2BEF-47F1-93ED-FB5300E4CD25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FAAD999-2BEF-47F1-93ED-FB5300E4CD25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FAAD999-2BEF-47F1-93ED-FB5300E4CD25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FAAD999-2BEF-47F1-93ED-FB5300E4CD25}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
